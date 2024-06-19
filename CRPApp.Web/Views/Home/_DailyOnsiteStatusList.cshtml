@@ -1,0 +1,78 @@
+﻿@model IEnumerable<CRPApp.Data.ViewModels.OnsiteStatusViewModel>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.EmpId)</th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnsiteStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastCRPDoorAccessed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastCRPDoorAccessedDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PositionTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @if (item.OnsiteStatus == "Onsite")
+            {
+                <span class="OnsiteText">
+                    @Html.DisplayFor(modelItem => item.OnsiteStatus)
+                </span>
+
+            }
+            else
+            {
+                <span class="OffsiteText">
+                    @Html.DisplayFor(modelItem => item.OnsiteStatus)
+                </span>
+
+            }
+        </td>
+        <td style="width:200px;">
+            @Html.DisplayFor(modelItem => item.LastCRPDoorAccessed)
+        </td>
+        <td style="width:250px;">
+            @Html.DisplayFor(modelItem => item.LastCRPDoorAccessedDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+    </tr>
+    }
+
+</table>

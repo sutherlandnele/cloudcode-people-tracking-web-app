@@ -1,0 +1,87 @@
+﻿<script src="@Url.Content("~/Scripts/jquery.signalR-2.4.1.min.js")"></script>
+<script src="@Url.Content("~/signalr/hubs")"></script>
+<script src="@Url.Content("~/Scripts/Views/index.js")"></script>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <button id="downloadOnsiteStatusesToExcelButton" onclick="Home.downloadOnsiteStatusesToExcel()" class="btn  btn-success">Download</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="dailyOnsiteStatusesTable"></div>
+    </div>
+</div>
+
+
+@*<script>
+        var hub = $.connection.dailyOnsiteStatusHub;
+        var hubStart = $.connection.hub.start();
+    </script>
+
+    @(Html.Kendo().Notification()
+              .Name("notification")
+              .Width("100%")
+              .Position(position => position.Top(0).Left(0))
+    )
+
+    @(Html.Kendo().Grid<CRPApp.Data.ViewModels.OnsiteStatusViewModel>()
+            .Name("Grid")
+            .HtmlAttributes(new { style = "height:800px" })
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.EmpId).Width(50);
+                columns.Bound(p => p.FirstName).Width(80);
+                columns.Bound(p => p.LastName).Width(80);
+                columns.Bound(p => p.PositionTitle).Width(80);
+                columns.Bound(p => p.Department).Width(80);
+                columns.Bound(p => p.Company).Width(80);
+                columns.Bound(p => p.OnsiteStatus).Width(80);
+                columns.Bound(p => p.LastCRPDoorAccessed).Width(80).Title("Door Last Accessed");
+                columns.Bound(p => p.LastCRPDoorAccessedDateTime).Width(80).ClientTemplate("#= kendo.toString(LastCRPDoorAccessedDateTime, \"MM/dd/yyyy hh:mm:ss tt\")#").Title("Last Accessed Time");
+                columns.Bound(p => p.Message).Width(140);
+            })
+            .Editable(editable => editable.Mode(GridEditMode.InCell))
+            .Pageable()
+            .Scrollable(s => s.Height("auto"))
+            .Navigatable()
+            .Sortable()
+            .Scrollable()
+            .DataSource(dataSource => dataSource
+                .SignalR()
+                .AutoSync(true)
+                .Events(events => events.Push(@<text>
+                    function(e) {
+                    var notification = $("#notification").data("kendoNotification");
+                    notification.success(e.type);
+                    }
+                </text>))
+                        .PageSize(100)
+                        .Transport(tr => tr
+                            .Promise("hubStart")
+                            .Hub("hub")
+                            .Client(c => c
+                                .Read("read")
+                                .Update("update"))
+                            .Server(s => s
+                                .Read("read")
+                                .Update("update")))
+                        .Schema(schema => schema
+                            .Model(model =>
+                            {
+                                model.Id(m => m.EmpId);
+                                model.Field(m => m.EmpId).Editable(false);
+                                model.Field(m => m.FirstName).Editable(false);
+                                model.Field(m => m.LastName).Editable(false);
+                                model.Field(m => m.PositionTitle).Editable(false);
+                                model.Field(m => m.Department).Editable(false);
+                                model.Field(m => m.Company).Editable(false);
+                                model.Field(m => m.LastCRPDoorAccessed).Editable(false);
+                                model.Field(m => m.LastCRPDoorAccessedDateTime).Editable(false);
+                                model.Field(m => m.Message).Editable(false);
+                            })
+                        )
+                    )
+    )*@
